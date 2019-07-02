@@ -22,16 +22,4 @@ class Organization
     @tags = attributes['tags']
   end
 
-  def repository
-    OrganizationRepository.instance
-  end
-
-  def users
-    # UserRepository.instance.find_by_organization(@_id)
-  end
-
-  def tickets
-    # TicketRepository.instance.find_by_organization(@_id)
-  end
-
 end
