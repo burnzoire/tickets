@@ -34,4 +34,18 @@ RSpec.describe UserRepository do
       expect(subject._id).to eq(id)
     end
   end
+
+  describe '#by_organization' do
+    let(:org_id) { 101 }
+
+    subject { described_class.new.by_organization(org_id) }
+
+    it 'returns the correct number of users' do
+      expect(subject.count).to eq(4)
+    end
+
+    it 'returns only users with the specified org id' do
+      expect(subject).to all(have_attributes(organization_id: org_id))
+    end
+  end
 end
