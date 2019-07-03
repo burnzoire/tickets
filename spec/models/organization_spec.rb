@@ -32,4 +32,12 @@ RSpec.describe Organization do
       expect(subject).to have_attributes(params)
     end
   end
+
+  describe 'to_s' do
+    subject { described_class.new(params).to_s }
+
+    it 'returns a summary of the organization' do
+      expect(subject).to eq('Organization #101 Enthaze')
+    end
+  end
 end

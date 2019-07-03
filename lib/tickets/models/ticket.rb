@@ -36,4 +36,8 @@ class Ticket
     @via = attributes['via']
   end
 
+  def to_s
+    "Ticket ##{_id} #{subject} (#{status})"
+  end
+
 end

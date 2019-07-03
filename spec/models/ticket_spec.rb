@@ -35,4 +35,13 @@ RSpec.describe Ticket do
       expect(subject).to have_attributes(params)
     end
   end
+
+  describe 'to_s' do
+    subject { described_class.new(params).to_s }
+
+    it 'returns a summary of the ticket' do
+      expect(subject).to eq('Ticket #436bf9b0-1147-4c0a-8439-6f79833bff5b A Catastrophe in Korea (North) (pending)')
+    end
+  end
+
 end

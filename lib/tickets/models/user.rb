@@ -42,4 +42,8 @@ class User
     @role = attributes['role']
   end
 
+  def to_s
+    "User ##{_id} #{name}"
+  end
+
 end

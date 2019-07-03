@@ -37,4 +37,12 @@ RSpec.describe User do
       expect(subject).to have_attributes(params)
     end
   end
+
+  describe 'to_s' do
+    subject { described_class.new(params).to_s }
+
+    it 'returns a summary of the user' do
+      expect(subject).to eq('User #1 Francisca Rasmussen')
+    end
+  end
 end

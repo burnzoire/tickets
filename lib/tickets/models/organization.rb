@@ -22,4 +22,8 @@ class Organization
     @tags = attributes['tags']
   end
 
+  def to_s
+    "Organization ##{_id} #{name}"
+  end
+
 end
