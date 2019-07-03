@@ -34,4 +34,30 @@ RSpec.describe OrganizationRepository do
       expect(subject._id).to eq(id)
     end
   end
+
+  describe '#search' do
+    let(:field) { 'name' }
+    let(:keyword) { 'Enthaze' }
+    subject { described_class.new.search(field, keyword) }
+
+    it 'returns a single result' do
+      expect(subject.count).to eq(1)
+    end
+
+    it 'returns the organization matching the search' do
+      expect(subject.first).to have_attributes(
+        name: 'Enthaze',
+        _id: 101
+      )
+    end
+
+    context 'with multiple hits' do
+      let(:field) { 'details' }
+      let(:keyword) { 'MegaCorp' }
+
+      it 'returns 9 results' do
+        expect(subject.count).to eq(9)
+      end
+    end
+  end
 end
