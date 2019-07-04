@@ -8,7 +8,9 @@ class Organization
               :created_at,
               :details,
               :shared_tickets,
-              :tags
+              :tags,
+              :users,
+              :tickets
 
   def initialize(attributes)
     @_id = attributes['_id']
@@ -24,6 +26,18 @@ class Organization
 
   def to_s
     "Organization ##{_id} #{name}"
+  end
+
+  def load_users(repo)
+    raise 'Bad repository' unless repo.is_a? UserRepository
+
+    @users = repo.by_organization(_id)
+  end
+
+  def load_tickets(repo)
+    raise 'Bad repository' unless repo.is_a? TicketRepository
+
+    @tickets = repo.by_organization(_id)
   end
 
 end
