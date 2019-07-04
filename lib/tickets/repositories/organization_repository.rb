@@ -26,7 +26,7 @@ class OrganizationRepository
           k[field].any? { |f| f == keyword }
         end
       else
-        data.select { |k| k[field] == keyword }
+        data.select { |k| k[field].to_s == keyword }
       end
 
     organizations.map { |organization| Organization.new(organization) }

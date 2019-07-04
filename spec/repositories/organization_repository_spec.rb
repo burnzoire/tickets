@@ -51,6 +51,18 @@ RSpec.describe OrganizationRepository do
       )
     end
 
+    context 'on numeric data' do
+      let(:field) { '_id' }
+      let(:keyword) { '101' }
+
+      it 'matches with equivalent strings' do
+        expect(subject.first).to have_attributes(
+          name: 'Enthaze',
+          _id: 101
+        )
+      end
+    end
+
     context 'with multiple hits' do
       let(:field) { 'details' }
       let(:keyword) { 'MegaCorp' }
