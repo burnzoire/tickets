@@ -5,6 +5,7 @@ class TicketRepository
 
   attr_reader :data
 
+  TAG_FIELDS = %w[tags].freeze
   FILE_PATH = './lib/tickets/data/tickets.json'.freeze
 
   def initialize
@@ -21,5 +22,24 @@ class TicketRepository
   def by_organization(org_id)
     tickets = data.select { |k| k[:organization_id] == org_id }
     tickets.map { |u| Ticket.new(u) }
+  end
+
+  def search(field, keyword)
+    results =
+      if tag_field?(field)
+        data.select do |k|
+          k[field.to_sym].any? { |f| f == keyword }
+        end
+      else
+        data.select { |k| k[field.to_sym].to_s == keyword }
+      end
+
+    results.map { |ticket| Ticket.new(ticket) }
+  end
+
+  private
+
+  def tag_field?(field)
+    TAG_FIELDS.include? field
   end
 end
