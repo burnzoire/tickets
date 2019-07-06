@@ -106,6 +106,19 @@ RSpec.describe TicketRepository do
       end
     end
 
+    context 'empty fields' do
+      let(:field) { 'description' }
+      let(:keyword) { '' }
+
+      it 'returns a single result' do
+        expect(subject.count).to eq(1)
+      end
+
+      it 'has no description' do
+        expect(subject.first.description).to be_nil
+      end
+    end
+
     context 'with multiple hits' do
       let(:field) { 'tags' }
       let(:keyword) { 'Palau' }
