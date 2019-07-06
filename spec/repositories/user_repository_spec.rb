@@ -48,4 +48,30 @@ RSpec.describe UserRepository do
       expect(subject).to all(have_attributes(organization_id: org_id))
     end
   end
+
+  describe '#search' do
+    let(:field) { 'name' }
+    let(:keyword) { 'Watkins Hammond' }
+    subject { described_class.new.search(field, keyword) }
+
+    it 'returns a single result' do
+      expect(subject.count).to eq(1)
+    end
+
+    it 'returns the user matching the search' do
+      expect(subject.first).to have_attributes(
+        _id: 12,
+        name: 'Watkins Hammond'
+      )
+    end
+
+    context 'with multiple hits' do
+      let(:field) { 'role' }
+      let(:keyword) { 'admin' }
+
+      it 'returns 24 results' do
+        expect(subject.count).to eq(24)
+      end
+    end
+  end
 end

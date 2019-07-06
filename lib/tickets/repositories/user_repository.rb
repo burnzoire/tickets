@@ -5,6 +5,7 @@ class UserRepository
 
   attr_reader :data
 
+  TAG_FIELDS = %w[tags].freeze
   FILE_PATH = './lib/tickets/data/users.json'.freeze
 
   def initialize
@@ -21,5 +22,24 @@ class UserRepository
   def find(id)
     datum = data.select { |k| k[:_id] == id }&.first
     User.new(datum) unless datum.nil?
+  end
+
+  def search(field, keyword)
+    results =
+      if tag_field?(field)
+        data.select do |k|
+          k[field.to_sym].any? { |f| f == keyword }
+        end
+      else
+        data.select { |k| k[field.to_sym].to_s == keyword }
+      end
+
+    results.map { |ticket| User.new(ticket) }
+  end
+
+  private
+
+  def tag_field?(field)
+    TAG_FIELDS.include? field
   end
 end
