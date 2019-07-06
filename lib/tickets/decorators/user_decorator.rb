@@ -19,7 +19,8 @@ class UserDecorator
         tags:          #{model.tags.join(', ')}
     STR
     str += "\n"
-    str += print_tickets('Sumbmitted Tickets:', model.submitted_tickets) if model.submitted_tickets
+    str += print_tickets('Submitted Tickets:', model.submitted_tickets) if model.submitted_tickets
+    str += "\n"
     str += print_tickets('Assigned Tickets:', model.assigned_tickets) if model.assigned_tickets
     str
   end
