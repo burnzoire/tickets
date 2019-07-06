@@ -89,17 +89,17 @@ RSpec.describe OrganizationDecorator do
             tags:          foo, bar
 
             Users:
-              _id    name          role          active verified
-              1      Foo Bar I     Tester        true   true
-              2      Foo Bar II    Tester        true   true
+              _id    name                    role          active verified
+              1      Foo Bar I               Tester        true   true
+              2      Foo Bar II              Tester        true   true
 
             Tickets:
-              subject                   priority    status
-              problem #1                high        open
-              problem #2                high        open
-              problem #3                high        open
-              problem #4                high        open
-              problem #5                high        open
+              subject                                      priority    status
+              problem #1                                   high        open
+              problem #2                                   high        open
+              problem #3                                   high        open
+              problem #4                                   high        open
+              problem #5                                   high        open
         STR
       )
     end

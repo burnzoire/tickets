@@ -1,4 +1,5 @@
-require_relative './lib/tickets/services/search_service.rb'
+require_relative './lib/tickets/services/search_service'
+require_relative './lib/tickets/decorators/organization_decorator'
 
 puts '*' * 50
 puts "*#{' ' * 48}*"
@@ -54,9 +55,14 @@ while awaiting_input
     puts "Searching on #{field}. Enter keyword:"
     keyword = $stdin.gets.chomp
     results = SearchService.new.public_send("search_#{category}", field, keyword)
-    puts "Searching #{category} where #{field} = #{keyword}."
-    puts "Found #{results.count} results..."
-    puts results
+    decorator = Object.const_get "#{category.to_s.chop.capitalize}Decorator"
+    puts "\n"
+    puts "Searching #{category} where #{field} = #{keyword}.\n\n"
+    puts "Found #{results.count} results...\n\n"
+    results.each do |result|
+      puts decorator.new(result)
+      puts "\n"
+    end
   elsif results
     puts "\n"
     puts 'Another search? [Y/N]'
