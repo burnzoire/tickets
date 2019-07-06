@@ -24,6 +24,16 @@ class TicketRepository
     tickets.map { |u| Ticket.new(u) }
   end
 
+  def by_submitter(user_id)
+    tickets = data.select { |k| k[:submitter_id] == user_id }
+    tickets.map { |u| Ticket.new(u) }
+  end
+
+  def by_assignee(user_id)
+    tickets = data.select { |k| k[:assignee_id] == user_id }
+    tickets.map { |u| Ticket.new(u) }
+  end
+
   def search(field, keyword)
     results =
       if tag_field?(field)

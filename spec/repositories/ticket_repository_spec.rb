@@ -49,6 +49,34 @@ RSpec.describe TicketRepository do
     end
   end
 
+  describe '#by_submitter' do
+    let(:user_id) { 70 }
+
+    subject { described_class.new.by_submitter(user_id) }
+
+    it 'returns the correct number of tickets' do
+      expect(subject.count).to eq(5)
+    end
+
+    it 'returns only tickets with the specified user id' do
+      expect(subject).to all(have_attributes(submitter_id: user_id))
+    end
+  end
+
+  describe '#by_assignee' do
+    let(:user_id) { 70 }
+
+    subject { described_class.new.by_assignee(user_id) }
+
+    it 'returns the correct number of tickets' do
+      expect(subject.count).to eq(4)
+    end
+
+    it 'returns only tickets with the specified user id' do
+      expect(subject).to all(have_attributes(assignee_id: user_id))
+    end
+  end
+
   describe '#search' do
     let(:field) { 'subject' }
     let(:keyword) { 'A Drama in Iraq' }

@@ -1,5 +1,7 @@
 require_relative './lib/tickets/services/search_service'
 require_relative './lib/tickets/decorators/organization_decorator'
+require_relative './lib/tickets/decorators/user_decorator'
+require_relative './lib/tickets/decorators/ticket_decorator'
 
 puts '*' * 50
 puts "*#{' ' * 48}*"

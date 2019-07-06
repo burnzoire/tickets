@@ -20,6 +20,8 @@ class User
               :suspended,
               :role
 
+  attr_accessor :organization, :submitted_tickets, :assigned_tickets
+
   def initialize(attributes)
     @_id = attributes[:_id]
     @url = attributes[:url]
@@ -46,4 +48,16 @@ class User
     "User ##{_id} #{name}"
   end
 
+  def load_organization(repo)
+    raise 'Bad repository' unless repo.is_a? OrganizationRepository
+
+    @organization = repo.find(organization_id)
+  end
+
+  def load_tickets(repo)
+    raise 'Bad repository' unless repo.is_a? TicketRepository
+
+    @submitted_tickets = repo.by_submitter(_id)
+    @assigned_tickets = repo.by_assignee(_id)
+  end
 end

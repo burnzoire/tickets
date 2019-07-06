@@ -17,6 +17,8 @@ class Ticket
               :due_at,
               :via
 
+  attr_accessor :organization, :submitter, :assignee
+
   def initialize(attributes)
     @_id = attributes[:_id]
     @url = attributes[:url]
@@ -40,4 +42,16 @@ class Ticket
     "Ticket ##{_id} #{subject} (#{status})"
   end
 
+  def load_organization(repo)
+    raise 'Bad repository' unless repo.is_a? OrganizationRepository
+
+    @organization = repo.find(organization_id)
+  end
+
+  def load_users(repo)
+    raise 'Bad repository' unless repo.is_a? UserRepository
+
+    @submitter = repo.find(submitter_id)
+    @assignee = repo.find(assignee_id)
+  end
 end

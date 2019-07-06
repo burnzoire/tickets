@@ -13,12 +13,22 @@ class SearchService
     end
   end
 
-  def search_users(_field, _keyword)
-    raise 'not implemented'
+  def search_users(field, keyword)
+    users = user_repository.search(field, keyword)
+
+    users.each do |user|
+      user.load_organization(organization_repository)
+      user.load_tickets(ticket_repository)
+    end
   end
 
-  def search_tickets(_field, _keyword)
-    raise 'not_implemented'
+  def search_tickets(field, keyword)
+    tickets = ticket_repository.search(field, keyword)
+
+    tickets.each do |ticket|
+      ticket.load_organization(organization_repository)
+      ticket.load_users(user_repository)
+    end
   end
 
   private
