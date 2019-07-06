@@ -51,6 +51,22 @@ RSpec.describe OrganizationRepository do
       )
     end
 
+    context 'with different case' do
+      let(:field) { 'name' }
+      let(:keyword) { 'enthaze' }
+
+      it 'returns a single result' do
+        expect(subject.count).to eq(1)
+      end
+
+      it 'returns the organization matching the search' do
+        expect(subject.first).to have_attributes(
+          name: 'Enthaze',
+          _id: 101
+        )
+      end
+    end
+
     context 'on numeric data' do
       let(:field) { '_id' }
       let(:keyword) { '101' }

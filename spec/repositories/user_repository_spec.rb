@@ -65,6 +65,22 @@ RSpec.describe UserRepository do
       )
     end
 
+    context 'with different case' do
+      let(:field) { 'name' }
+      let(:keyword) { 'watkins hammond' }
+
+      it 'returns a single result' do
+        expect(subject.count).to eq(1)
+      end
+
+      it 'returns the user matching the search' do
+        expect(subject.first).to have_attributes(
+          _id: 12,
+          name: 'Watkins Hammond'
+        )
+      end
+    end
+
     context 'with multiple hits' do
       let(:field) { 'role' }
       let(:keyword) { 'admin' }

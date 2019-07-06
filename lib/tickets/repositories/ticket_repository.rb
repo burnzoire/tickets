@@ -38,10 +38,10 @@ class TicketRepository
     results =
       if tag_field?(field)
         data.select do |k|
-          k[field.to_sym].any? { |f| f == keyword }
+          k[field.to_sym].any? { |f| f.casecmp(keyword).zero? }
         end
       else
-        data.select { |k| k[field.to_sym].to_s == keyword }
+        data.select { |k| k[field.to_sym].to_s.casecmp(keyword).zero? }
       end
 
     results.map { |ticket| Ticket.new(ticket) }

@@ -90,6 +90,22 @@ RSpec.describe TicketRepository do
       expect(subject.first.subject).to eq(keyword)
     end
 
+    context 'with different case' do
+      let(:field) { 'subject' }
+      let(:keyword) { 'a drama in Iraq' }
+
+      it 'returns a single result' do
+        expect(subject.count).to eq(1)
+      end
+
+      it 'returns the ticket matching the search' do
+        expect(subject.first).to have_attributes(
+          _id: '25c518a8-4bd9-435a-9442-db4202ec1da4',
+          subject: 'A Drama in Iraq',
+        )
+      end
+    end
+
     context 'with multiple hits' do
       let(:field) { 'tags' }
       let(:keyword) { 'Palau' }
