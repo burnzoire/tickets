@@ -9,17 +9,17 @@ class TicketRepository
 
   def initialize
     json = File.new(FILE_PATH, 'r')
-    parser = Yajl::Parser.new
+    parser = Yajl::Parser.new(symbolize_keys: true)
     @data = parser.parse(json)
   end
 
   def find(id)
-    datum = data.select { |k| k['_id'] == id }&.first
+    datum = data.select { |k| k[:_id] == id }&.first
     Ticket.new(datum) unless datum.nil?
   end
 
   def by_organization(org_id)
-    tickets = data.select { |k| k['organization_id'] == org_id }
+    tickets = data.select { |k| k[:organization_id] == org_id }
     tickets.map { |u| Ticket.new(u) }
   end
 end

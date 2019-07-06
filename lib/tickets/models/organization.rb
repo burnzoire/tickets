@@ -8,20 +8,20 @@ class Organization
               :created_at,
               :details,
               :shared_tickets,
-              :tags,
-              :users,
-              :tickets
+              :tags
+
+  attr_accessor :users, :tickets
 
   def initialize(attributes)
-    @_id = attributes['_id']
-    @url = attributes['url']
-    @external_id = attributes['external_id']
-    @name = attributes['name']
-    @domain_names = attributes['domain_names']
-    @created_at = attributes['created_at']
-    @details = attributes['details']
-    @shared_tickets = attributes['shared_tickets']
-    @tags = attributes['tags']
+    @_id = attributes[:_id]
+    @url = attributes[:url]
+    @external_id = attributes[:external_id]
+    @name = attributes[:name]
+    @domain_names = attributes[:domain_names]
+    @created_at = attributes[:created_at]
+    @details = attributes[:details]
+    @shared_tickets = attributes[:shared_tickets]
+    @tags = attributes[:tags]
   end
 
   def to_s

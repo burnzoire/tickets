@@ -10,12 +10,12 @@ class OrganizationRepository
 
   def initialize
     json = File.new(FILE_PATH, 'r')
-    parser = Yajl::Parser.new
+    parser = Yajl::Parser.new(symbolize_keys: true)
     @data = parser.parse(json)
   end
 
   def find(id)
-    datum = data.select { |k| k['_id'] == id }&.first
+    datum = data.select { |k| k[:_id] == id }&.first
     Organization.new(datum) unless datum.nil?
   end
 
@@ -23,10 +23,10 @@ class OrganizationRepository
     organizations =
       if tag_field?(field)
         data.select do |k|
-          k[field].any? { |f| f == keyword }
+          k[field.to_sym].any? { |f| f == keyword }
         end
       else
-        data.select { |k| k[field].to_s == keyword }
+        data.select { |k| k[field.to_sym].to_s == keyword }
       end
 
     organizations.map { |organization| Organization.new(organization) }
