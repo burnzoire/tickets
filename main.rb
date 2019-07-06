@@ -14,9 +14,12 @@ category, field, keyword, results = nil
 awaiting_input = true
 
 fields = {
-  organizations: %w[_id name details domain_names tags url external_id shared_tickets],
-  users: %w[_id name alias],
-  tickets: %w[_id subject description tags]
+  organizations: %w[_id name details domain_names tags external_id shared_tickets],
+  users: %w[
+    _id name alias email phone signature tags active verified shared
+    locale timezone suspended role
+  ],
+  tickets: %w[_id subject description type priority status has_incidents via tags]
 }
 
 while awaiting_input
