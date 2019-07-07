@@ -1,4 +1,8 @@
-# tickets
+# Tickets
+A simple application to demonstrate searching JSON data.
+
+## Author
+Nathan Burns <burnzoire@gmail.com>
 
 ## Requirements
 `Ruby 2.6.3`
