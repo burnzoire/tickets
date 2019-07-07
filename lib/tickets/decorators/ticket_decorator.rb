@@ -18,8 +18,8 @@ class TicketDecorator
         status:        #{model.status}
         description    #{model.description}
         submitted by:  #{submitted_by}
-        assigned to    #{assigned_to}
-        organization:  #{model.organization.name}
+        assigned to:   #{assigned_to}
+        organization:  #{organization}
         url:           #{model.url}
         created_at:    #{model.created_at}
         tags:          #{model.tags.join(', ')}
@@ -34,5 +34,9 @@ class TicketDecorator
 
   def assigned_to
     model&.assignee&.name
+  end
+
+  def organization
+    model&.organization&.name
   end
 end

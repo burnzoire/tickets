@@ -107,7 +107,7 @@ RSpec.describe TicketDecorator do
             status:        open
             description    This is a problem
             submitted by:  Foo Bar I
-            assigned to    Foo Bar II
+            assigned to:   Foo Bar II
             organization:  FooCo
             url:           foo.co/tickets/1
             created_at:    2019-06-30 13:00:00 +11
@@ -126,6 +126,14 @@ RSpec.describe TicketDecorator do
 
     context 'when no submitter exists' do
       let(:submitter) { nil }
+
+      it 'doesn\'t raise an error' do
+        expect { subject }.to_not raise_error
+      end
+    end
+
+    context 'when no organization exists' do
+      let(:organization) { nil }
 
       it 'doesn\'t raise an error' do
         expect { subject }.to_not raise_error
