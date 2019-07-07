@@ -2,10 +2,9 @@ require 'yajl'
 require_relative '../models/user.rb'
 
 class UserRepository
-
+  include BasicSearch
   attr_reader :data
 
-  TAG_FIELDS = %w[tags].freeze
   FILE_PATH = './lib/tickets/data/users.json'.freeze
 
   def initialize
@@ -19,27 +18,7 @@ class UserRepository
     users.map { |u| User.new(u) }
   end
 
-  def find(id)
-    datum = data.select { |k| k[:_id] == id }&.first
-    User.new(datum) unless datum.nil?
-  end
-
-  def search(field, keyword)
-    results =
-      if tag_field?(field)
-        data.select do |k|
-          k[field.to_sym].any? { |f| f.casecmp(keyword).zero? }
-        end
-      else
-        data.select { |k| k[field.to_sym].to_s.casecmp(keyword).zero? }
-      end
-
-    results.map { |ticket| User.new(ticket) }
-  end
-
-  private
-
-  def tag_field?(field)
-    TAG_FIELDS.include? field
+  def tag_fields
+    %w[tags]
   end
 end

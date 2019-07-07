@@ -1,11 +1,11 @@
 require 'yajl'
-require_relative '../models/organization.rb'
+require_relative '../models/organization'
+require_relative 'basic_search'
 
 class OrganizationRepository
-
+  include BasicSearch
   attr_reader :data
 
-  TAG_FIELDS = %w[domain_names tags].freeze
   FILE_PATH = './lib/tickets/data/organizations.json'.freeze
 
   def initialize
@@ -14,27 +14,7 @@ class OrganizationRepository
     @data = parser.parse(json)
   end
 
-  def find(id)
-    datum = data.select { |k| k[:_id] == id }&.first
-    Organization.new(datum) unless datum.nil?
-  end
-
-  def search(field, keyword)
-    organizations =
-      if tag_field?(field)
-        data.select do |k|
-          k[field.to_sym].any? { |f| f.casecmp(keyword).zero? }
-        end
-      else
-        data.select { |k| k[field.to_sym].to_s.casecmp(keyword).zero? }
-      end
-
-    organizations.map { |organization| Organization.new(organization) }
-  end
-
-  private
-
-  def tag_field?(field)
-    TAG_FIELDS.include? field
+  def tag_fields
+    %w[domain_names tags]
   end
 end
