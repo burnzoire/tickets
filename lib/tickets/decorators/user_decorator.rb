@@ -29,7 +29,9 @@ class UserDecorator
 
   def print_tickets(title, tickets)
     str = "  #{title}\n"
-    str += "    subject                                      priority    status\n"
+    str += '    ' + 'subject'.ljust(45)
+    str += 'priority'.ljust(12)
+    str += "status\n"
 
     tickets.each do |ticket|
       str += '    ' + ticket.subject.ljust(45)

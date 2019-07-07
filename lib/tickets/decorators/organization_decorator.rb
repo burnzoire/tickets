@@ -21,16 +21,21 @@ class OrganizationDecorator
         tags:          #{model.tags.join(', ')}
     STR
     str += "\n"
-    str += print_users
+    str += print_users if model.users
     str += "\n"
-    str += print_tickets
+    str += print_tickets if model.tickets
     str
   end
 
   private
 
   def print_users
-    str = "  Users:\n    _id    name                    role          active verified\n"
+    str = "  Users:\n"
+    str += '    ' + '_id'.ljust(7)
+    str += 'name'.ljust(24)
+    str += 'role'.ljust(14)
+    str += 'active'.ljust(7)
+    str += "verified\n"
 
     model.users.each do |user|
       str += '    ' + user._id.to_s.ljust(7)
@@ -44,7 +49,10 @@ class OrganizationDecorator
   end
 
   def print_tickets
-    str = "  Tickets:\n    subject                                      priority    status\n"
+    str = "  Tickets:\n"
+    str += '    ' + 'subject'.ljust(45)
+    str += 'priority'.ljust(12)
+    str += "status\n"
 
     model.tickets.each do |ticket|
       str += '    ' + ticket.subject.ljust(45)
