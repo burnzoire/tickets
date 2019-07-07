@@ -17,12 +17,22 @@ class TicketDecorator
         priority:      #{model.priority}
         status:        #{model.status}
         description    #{model.description}
-        submitted by:  #{model.submitter.name}
-        assigned to    #{model.assignee.name}
+        submitted by:  #{submitted_by}
+        assigned to    #{assigned_to}
         organization:  #{model.organization.name}
         url:           #{model.url}
         created_at:    #{model.created_at}
         tags:          #{model.tags.join(', ')}
     STR
+  end
+
+  private
+
+  def submitted_by
+    model&.submitter&.name
+  end
+
+  def assigned_to
+    model&.assignee&.name
   end
 end

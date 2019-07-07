@@ -115,5 +115,21 @@ RSpec.describe TicketDecorator do
         STR
       )
     end
+
+    context 'when no assignee exists' do
+      let(:assignee) { nil }
+
+      it 'doesn\'t raise an error' do
+        expect { subject }.to_not raise_error
+      end
+    end
+
+    context 'when no submitter exists' do
+      let(:submitter) { nil }
+
+      it 'doesn\'t raise an error' do
+        expect { subject }.to_not raise_error
+      end
+    end
   end
 end
