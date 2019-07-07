@@ -118,5 +118,14 @@ RSpec.describe UserDecorator do
         STR
       )
     end
+
+    context 'when no organization exists' do
+      let(:organization) { nil }
+
+      it 'doesn\'t raise an error' do
+        expect { subject }.to_not raise_error
+      end
+    end
+
   end
 end

@@ -14,7 +14,7 @@ class UserDecorator
       User ##{model._id}
         name:          #{model.name}
         url:           #{model.url}
-        organization:  #{model.organization.name}
+        organization:  #{organization}
         created_at:    #{model.created_at}
         tags:          #{model.tags.join(', ')}
     STR
@@ -28,7 +28,8 @@ class UserDecorator
   private
 
   def print_tickets(title, tickets)
-    str = "  #{title}\n    subject                                      priority    status\n"
+    str = "  #{title}\n"
+    str += "    subject                                      priority    status\n"
 
     tickets.each do |ticket|
       str += '    ' + ticket.subject.ljust(45)
@@ -37,5 +38,9 @@ class UserDecorator
       str += "\n"
     end
     str
+  end
+
+  def organization
+    model&.organization&.name
   end
 end
