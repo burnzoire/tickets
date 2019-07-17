@@ -101,7 +101,7 @@ RSpec.describe TicketRepository do
       it 'returns the ticket matching the search' do
         expect(subject.first).to have_attributes(
           _id: '25c518a8-4bd9-435a-9442-db4202ec1da4',
-          subject: 'A Drama in Iraq',
+          subject: 'A Drama in Iraq'
         )
       end
     end
@@ -116,6 +116,26 @@ RSpec.describe TicketRepository do
 
       it 'has no description' do
         expect(subject.first.description).to be_nil
+      end
+    end
+
+    context 'with boolean field' do
+      let(:field) { 'has_incidents' }
+
+      context 'searching with 0' do
+        let(:keyword) { '0' }
+
+        it 'returns the expected amount of results' do
+          expect(subject.count).to eq(101)
+        end
+
+        it 'returns tickets without incident' do
+          expect(subject).to all(
+            have_attributes(
+              has_incidents: false
+            )
+          )
+        end
       end
     end
 

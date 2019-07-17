@@ -1,5 +1,6 @@
 require 'yajl'
 require_relative '../models/ticket.rb'
+require_relative './basic_search.rb'
 
 class TicketRepository
   attr_reader :data
@@ -30,5 +31,9 @@ class TicketRepository
 
   def tag_fields
     %w[tags]
+  end
+
+  def boolean_fields
+    %w[has_incidents]
   end
 end

@@ -11,6 +11,14 @@ module BasicSearch
           k[field.to_sym].any? { |f| f.casecmp(keyword).zero? }
         end
       else
+        if boolean_field?(field)
+          keyword =
+            if keyword == '0'
+              'false'
+            elsif keyword == '1'
+              'true'
+            end
+        end
         data.select { |k| k[field.to_sym].to_s.casecmp(keyword).zero? }
       end
 
@@ -25,5 +33,11 @@ module BasicSearch
 
   def tag_field?(field)
     tag_fields.include? field
+  end
+
+  def boolean_field?(field)
+    return false unless self.class.instance_methods.include? :boolean_fields
+
+    boolean_fields.include? field
   end
 end
